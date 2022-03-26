@@ -11,55 +11,56 @@ import FlightIcon from '@mui/icons-material/Flight';
 export function monsterBlock(monster) {
 
   let actions, specialAbilities, walk, climb, swim, fly = null
-    try {
-      specialAbilities = monster.special_abilities.map(ability =>
-          <div className="ability-desc">
-            <Typography variant="h6">
-              {ability.name}
-            </Typography>
-            <Typography variant="body1">
-              {ability.desc}
-            </Typography>
-            </div>)
-    } catch
-    { specialAbilities = 'No special abilities.'}
 
-    try {
-      actions = monster.actions.map(actions =>
-          <div className="ability-desc">
-            <Typography variant="h6">
-              {actions.name}
-            </Typography>
-            <Typography variant="body1">
-              {actions.desc}
-            </Typography>
-            </div>)
-    } catch
-    { actions = 'Could not load action data.'}
+  try {
+    specialAbilities = monster.special_abilities.map(ability =>
+        <div className="ability-desc">
+          <Typography variant="h6">
+            {ability.name}
+          </Typography>
+          <Typography variant="body1">
+            {ability.desc}
+          </Typography>
+          </div>)
+  } catch
+  { specialAbilities = 'No special abilities.'}
 
-    if (monster.speed.walk) {
-      walk = monster.speed.walk
-    } else {
-      walk = '0 ft.'
-    }
+  try {
+    actions = monster.actions.map(actions =>
+        <div className="ability-desc">
+          <Typography variant="h6">
+            {actions.name}
+          </Typography>
+          <Typography variant="body1">
+            {actions.desc}
+          </Typography>
+          </div>)
+  } catch
+  { actions = 'Could not load action data.'}
 
-    if (monster.speed.climb) {
-      climb = monster.speed.climb
-    } else {
-      climb = '0 ft.'
-    }
+  if (monster.speed.walk) {
+    walk = monster.speed.walk
+  } else {
+    walk = '0 ft.'
+  }
 
-    if (monster.speed.swim) {
-      swim = monster.speed.swim
-    } else {
-      swim = '0 ft.'
-    }
+  if (monster.speed.climb) {
+    climb = monster.speed.climb
+  } else {
+    climb = '0 ft.'
+  }
 
-    if (monster.speed.fly) {
-      fly = monster.speed.fly
-    } else {
-      fly = '0 ft.'
-    }
+  if (monster.speed.swim) {
+    swim = monster.speed.swim
+  } else {
+    swim = '0 ft.'
+  }
+
+  if (monster.speed.fly) {
+    fly = monster.speed.fly
+  } else {
+    fly = '0 ft.'
+  }
 
   return (<div>
     {/* Name / Type / HP / AC / Speed */}
@@ -112,7 +113,7 @@ export function monsterBlock(monster) {
         </div>)
 }
 
-export default function RandomMonster() {
+export function RandomMonster() {
 
   const [randomMonster, setRandomMonster] = useState('')
 
@@ -125,7 +126,6 @@ export default function RandomMonster() {
 
   async function randomlyGenerateMonster() {
     let randoMonster = await getRandomMonster()
-    
     setRandomMonster(monsterBlock(randoMonster)
     )
   }
@@ -135,4 +135,27 @@ export default function RandomMonster() {
       {randomMonster}
       <Button variant="contained" onClick={()=> randomlyGenerateMonster()}>Generate Random Monster</Button>
     </Container>)
+}
+
+export function MonsterCard() {
+
+  const [monster, setMonster] = useState('')
+
+  async function getMonster(index) {
+    const response = await fetch('https://blakechartrand.com/5e-SRD-Monsters.json');
+    const monster = await response.json();
+    const monsterData = monster[index];
+    return monsterData
+  }
+
+  async function generateMonster(index) {
+    let monster = await getMonster(index)
+    setMonster(monsterBlock(monster))
+  }
+
+  return(
+    <Container className="generator-card" maxWidth="md">
+    {monster}
+    <Button variant="contained" onClick={()=> generateMonster(212)}>Generate Random Monster</Button>
+  </Container>)
 }

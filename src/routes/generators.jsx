@@ -1,7 +1,6 @@
-import { Button, Container, Typography } from "@mui/material";
-import { useState } from "react";
+import { Container, Typography } from "@mui/material";
 import Weapons from "../assets/data/weaponlist.json"
-import GetRandomMonster from "../generators/monster";
+import { RandomMonster, MonsterCard } from "../generators/monster";
 
 export default function Generators() {
     return (
@@ -9,11 +8,11 @@ export default function Generators() {
         <Typography variant="h3">Generators</Typography>
         <details>
           <summary className="generator-title">Random Monster Generator</summary>
-          <GetRandomMonster />
+          <RandomMonster />
         </details>
         <details>
-          <summary className="generator-title">Random Item Generator</summary>
-          <GetRandomMonster />
+          <summary className="generator-title">Orc Stats</summary>
+          <MonsterCard />
         </details>
       </Container>
     );
