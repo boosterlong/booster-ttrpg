@@ -3,10 +3,6 @@ import { useState } from "react";
 import Weapons from "../assets/data/weaponlist.json"
 import GetRandomMonster from "../generators/monster";
 
-export function getRandomInt(max) {
-  return Math.floor(Math.random() * max)
-}
-
 export default function Generators() {
     return (
       <Container maxWidth="md">
@@ -16,7 +12,7 @@ export default function Generators() {
           <GetRandomMonster />
         </details>
         <details>
-          <summary className="generator-title">Random Monster Generator</summary>
+          <summary className="generator-title">Random Item Generator</summary>
           <GetRandomMonster />
         </details>
       </Container>
