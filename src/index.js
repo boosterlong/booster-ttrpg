@@ -9,26 +9,27 @@ import Generators from "./routes/generators";
 import Dice from "./routes/dice";
 import Home from "./routes/home";
 import "./assets/css/global.css";
+import { Button } from "@mui/material";
 
 const rootElement = document.getElementById("root");
 
 render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route path="/" element={<Home />} />
-        <Route path="generators" element={<Generators />} />
-        <Route path="dice" element={<Dice />} />
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="/" element={<Home />} />
+          <Route path="generators" element={<Generators />} />
+          <Route path="dice" element={<Dice />} />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <Button variant="outlined">There's nothing here!</Button>
+              </main>
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>,
   rootElement
 );

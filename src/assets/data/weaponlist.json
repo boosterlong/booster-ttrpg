@@ -1,0 +1,14 @@
+{
+  "results": [
+    {
+      "index": "greatsword",
+      "name": "Greatsword",
+      "damage": "2d6"
+    },
+    {
+      "index": "greataxe",
+      "name": "Greataxe",
+      "damage": "1d12"
+    }
+  ]
+}

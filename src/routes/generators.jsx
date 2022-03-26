@@ -1,7 +1,24 @@
+import { Button, Container, Typography } from "@mui/material";
+import { useState } from "react";
+import Weapons from "../assets/data/weaponlist.json"
+import GetRandomMonster from "../generators/monster";
+
+export function getRandomInt(max) {
+  return Math.floor(Math.random() * max)
+}
+
 export default function Generators() {
     return (
-      <main style={{ padding: "1rem 0" }}>
-        <h2>Gens</h2>
-      </main>
+      <Container maxWidth="md">
+        <Typography variant="h3">Generators</Typography>
+        <details>
+          <summary className="generator-title">Random Monster Generator</summary>
+          <GetRandomMonster />
+        </details>
+        <details>
+          <summary className="generator-title">Random Monster Generator</summary>
+          <GetRandomMonster />
+        </details>
+      </Container>
     );
   }
