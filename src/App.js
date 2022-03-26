@@ -29,7 +29,7 @@ export default function App() {
         >
           <Typography variant="h6">
             <Link className="nav-link unstyle" to="/generators">Random Generators</Link> |{" "}
-            <Link class="nav-link unstyle" to="/dice">Dice Roller</Link>
+            <Link className="nav-link unstyle" to="/dice">Dice Roller</Link>
           </Typography>
         </nav>
         <Outlet />
