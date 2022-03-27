@@ -137,10 +137,18 @@ export function RandomMonster() {
     </Container>)
 }
 
-export function MonsterCard() {
+export function MonsterCard(name) {
 
   const [monster, setMonster] = useState('')
 
+  async function nameToIndex(name) {
+    const response = await fetch('https://blakechartrand.com/5e-SRD-Monsters.json');
+    const monsterList = await response.json();
+    const result = await monsterList.findIndex(x => x.index === name)
+    console.log(result)
+    return result
+  }
+  
   async function getMonster(index) {
     const response = await fetch('https://blakechartrand.com/5e-SRD-Monsters.json');
     const monster = await response.json();
@@ -148,7 +156,8 @@ export function MonsterCard() {
     return monsterData
   }
 
-  async function generateMonster(index) {
+  async function generateMonster(name) {
+    let index = await nameToIndex(name)
     let monster = await getMonster(index)
     setMonster(monsterBlock(monster))
   }
@@ -156,6 +165,6 @@ export function MonsterCard() {
   return(
     <Container className="generator-card" maxWidth="md">
     {monster}
-    <Button variant="contained" onClick={()=> generateMonster(212)}>Generate Random Monster</Button>
+    <Button variant="contained" onClick={()=> generateMonster(name)}>Generate Random Monster</Button>
   </Container>)
 }

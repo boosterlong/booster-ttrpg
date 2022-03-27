@@ -10,6 +10,7 @@ import Dice from "./routes/dice";
 import Home from "./routes/home";
 import "./assets/css/global.css";
 import { Button } from "@mui/material";
+import SingleMonster from "./pages/singlemonster";
 
 const rootElement = document.getElementById("root");
 
@@ -27,6 +28,10 @@ render(
                 <Button variant="outlined">There's nothing here!</Button>
               </main>
             }
+          />
+          <Route
+            path="monster/:id"
+            element={<SingleMonster />}
           />
         </Route>
       </Routes>
