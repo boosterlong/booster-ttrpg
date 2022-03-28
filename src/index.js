@@ -11,6 +11,7 @@ import Home from "./routes/home";
 import "./assets/css/global.css";
 import { Button } from "@mui/material";
 import SingleMonster from "./pages/singlemonster";
+import MonsterList from "./pages/monsterlist";
 
 const rootElement = document.getElementById("root");
 
@@ -29,8 +30,9 @@ render(
               </main>
             }
           />
+          <Route path="monsters" element={<MonsterList />} />
           <Route
-            path="monster/:id"
+            path="monsters/:id"
             element={<SingleMonster />}
           />
         </Route>

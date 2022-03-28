@@ -18,7 +18,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Typography variant="h1">
+        <Typography variant="h3">
           <a className="unstyle" href="/">The Grand Tome</a>
         </Typography>
         <nav
@@ -28,6 +28,7 @@ export default function App() {
           }}
         >
           <Typography variant="h6">
+            <Link className="nav-link unstyle" to="/monsters">Monsters</Link> |{" "}
             <Link className="nav-link unstyle" to="/generators">Random Generators</Link> |{" "}
             <Link className="nav-link unstyle" to="/dice">Dice Roller</Link>
           </Typography>

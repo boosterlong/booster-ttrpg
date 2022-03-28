@@ -82,3 +82,26 @@ body {
 .ability-desc {
   padding-top: 1rem;
 }
+
+.monster-list-item {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  width: calc(100vw / 4);
+  flex-grow: 1;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.082);
+}
+
+@media screen and (max-width: 600px) {
+  .monster-list-item {
+    width: 100%;
+  }
+}
+
+.monster-list-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
