@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { Typography, ThemeProvider, createTheme } from "@mui/material";
+import { Outlet, Link } from "react-router-dom";
 
-function App() {
+export default function App() {
+
+  const theme = createTheme({
+    palette: {
+      type: 'light',
+      primary: {
+        main: '#1b5e20',
+      },
+      secondary: {
+        main: '#2196f3',
+      },
+    }
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <ThemeProvider theme={theme}>
+      <div>
+        <Typography variant="h3">
+          <a className="unstyle" href="/">The Grand Tome</a>
+        </Typography>
+        <nav
+          style={{
+            borderBottom: "solid 1px",
+            paddingBottom: "1rem",
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Typography variant="h6">
+            <Link className="nav-link unstyle" to="/monsters">Monsters</Link> |{" "}
+            <Link className="nav-link unstyle" to="/generators">Random Generators</Link> |{" "}
+            <Link className="nav-link unstyle" to="/dice">Dice Roller</Link>
+          </Typography>
+        </nav>
+        <Outlet />
+      </div>
+    </ThemeProvider>
   );
 }
-
-export default App;
