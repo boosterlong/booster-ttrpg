@@ -1,5 +1,4 @@
 import { Container, Typography } from "@mui/material";
-import Weapons from "../assets/data/weaponlist.json"
 import { RandomMonster, MonsterCard } from "../generators/monster";
 
 export default function Generators() {
