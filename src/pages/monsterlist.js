@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function MonsterList() {
 
-  const [ monsters, setMonsters ] = useState('Pizza')
+  const [ monsters, setMonsters ] = useState('Loading, please wait.')
 
   async function getMonsterList() {
     const response = await fetch('https://blakechartrand.com/5e-SRD-Monsters.json');
