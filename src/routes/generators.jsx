@@ -9,10 +9,6 @@ export default function Generators() {
           <summary className="generator-title">Random Monster Generator</summary>
           <RandomMonster />
         </details>
-        <details>
-          <summary className="generator-title">Orc Stats</summary>
-          <MonsterCard />
-        </details>
       </Container>
     );
   }

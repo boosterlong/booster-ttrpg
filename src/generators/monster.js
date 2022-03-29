@@ -131,7 +131,7 @@ export function RandomMonster() {
   }
 
   return (
-    <Container className="generator-card" maxWidth="md">
+    <Container className="card" maxWidth="md">
       {randomMonster}
       <Button variant="contained" onClick={() => randomlyGenerateMonster()}>Generate Random Monster</Button>
     </Container>)
@@ -165,7 +165,7 @@ export function MonsterCard(name) {
   generateMonster(name)
 
   return(
-    <Container className="generator-card" maxWidth="md">
+    <Container className="card" maxWidth="md">
     {monster}
   </Container>)
 }
