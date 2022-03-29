@@ -1,4 +1,4 @@
-import { Typography, ThemeProvider, createTheme } from "@mui/material";
+import { Typography, ThemeProvider, createTheme, Container } from "@mui/material";
 import { Outlet, Link } from "react-router-dom";
 
 export default function App() {
@@ -12,21 +12,20 @@ export default function App() {
       secondary: {
         main: '#2196f3',
       },
-    }
+    },
+    typography: {
+      fontFamily: 'League Spartan',
+      fontSize: 16,
+    },
   })
 
   return (
     <ThemeProvider theme={theme}>
-      <div>
+      <Container maxWidth="md" className="main-container">
         <Typography variant="h3">
-          <a className="unstyle" href="/">The Grand Tome</a>
+          <a className="unstyle header-title" href="/">The Grand Tome</a>
         </Typography>
-        <nav
-          style={{
-            borderBottom: "solid 1px",
-            paddingBottom: "1rem",
-          }}
-        >
+        <nav>
           <Typography variant="h6">
             <Link className="nav-link unstyle" to="/monsters">Monsters</Link> |{" "}
             <Link className="nav-link unstyle" to="/generators">Random Generators</Link> |{" "}
@@ -34,7 +33,7 @@ export default function App() {
           </Typography>
         </nav>
         <Outlet />
-      </div>
+      </Container>
     </ThemeProvider>
   );
 }
