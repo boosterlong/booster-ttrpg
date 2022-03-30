@@ -76,7 +76,7 @@ export function monsterBlock(monster) {
           <Typography className="inline-center v-padding-1" variant="h5">
             {monster.hit_points}<HealthAndSafetyIcon /> {monster.armor_class}<ShieldIcon />
           </Typography>
-          <Typography className="inline-center v-padding-1" variant="h6">
+          <Typography className="inline-center v-padding-1" variant="body1">
             |{walk}<DirectionsRunIcon />|
             {climb}<HikingIcon />|
             {swim}<PoolIcon />|
@@ -137,32 +137,37 @@ export function RandomMonster() {
     </Container>)
 }
 
+export async function getMonster(index) {
+  const response = await fetch('https://blakechartrand.com/5e-SRD-Monsters.json');
+  const monster = await response.json();
+  const monsterData = monster[index];
+  return monsterData
+}
+
+export async function nameToIndex(name) {
+  const response = await fetch('https://blakechartrand.com/5e-SRD-Monsters.json');
+  const monsterList = await response.json();
+  const result = await monsterList.findIndex(x => x.index === name)
+  return result
+}
+
+export async function generateMonster(name) {
+  let index = await nameToIndex(name)
+  let monster = await getMonster(index)
+  return (monsterBlock(monster))
+}
+
 export function MonsterCard(name) {
 
   const [monster, setMonster] = useState('')
 
-  async function nameToIndex(name) {
-    const response = await fetch('https://blakechartrand.com/5e-SRD-Monsters.json');
-    const monsterList = await response.json();
-    const result = await monsterList.findIndex(x => x.index === name)
-    console.log(result)
-    return result
-  }
-  
-  async function getMonster(index) {
-    const response = await fetch('https://blakechartrand.com/5e-SRD-Monsters.json');
-    const monster = await response.json();
-    const monsterData = monster[index];
-    return monsterData
-  }
-
-  async function generateMonster(name) {
+  async function fillCard(name) {
     let index = await nameToIndex(name)
     let monster = await getMonster(index)
     setMonster(monsterBlock(monster))
   }
-
-  generateMonster(name)
+  
+  fillCard(name)
 
   return(
     <Container className="card" maxWidth="md">
