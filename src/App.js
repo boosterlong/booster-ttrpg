@@ -1,5 +1,6 @@
 import { Typography, ThemeProvider, createTheme, Container } from "@mui/material";
 import { Outlet, Link } from "react-router-dom";
+import Footer from "./components/footer";
 
 export default function App() {
 
@@ -26,13 +27,15 @@ export default function App() {
           <a className="unstyle header-title" href="/">The Grand Tome</a>
         </Typography>
         <nav>
-          <Typography variant="h6">
+          <Typography variant="subtitle1">
             <Link className="nav-link unstyle" to="/monsters">Monsters</Link> |{" "}
             <Link className="nav-link unstyle" to="/generators">Random Generators</Link> |{" "}
-            <Link className="nav-link unstyle" to="/dice">Dice Roller</Link>
+            <Link className="nav-link unstyle" to="/dice">Dice Roller</Link> |{" "}
+            <Link className="nav-link unstyle" to="/donate">Donate</Link>
           </Typography>
         </nav>
         <Outlet />
+       <Footer />
       </Container>
     </ThemeProvider>
   );

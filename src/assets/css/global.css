@@ -125,3 +125,19 @@ nav {
   border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
   margin-bottom: 1rem;
 }
+
+.footer-container {
+  width: 100%;
+  border-top: 1px dotted rgba(255, 255, 255, 0.2);
+  margin-top: 1rem;
+  display: flex;
+  align-content: center;
+}
+
+.footer-bar {
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+}
