@@ -5,13 +5,14 @@ import {
   Route,
 } from "react-router-dom";
 import App from "./App";
-import Generators from "./routes/generators";
-import Dice from "./routes/dice";
-import Home from "./routes/home";
+import Generators from "./components/generators";
+import Dice from "./components/dice";
+import Home from "./components/home";
 import "./assets/css/global.css";
 import { Button } from "@mui/material";
 import SingleMonster from "./pages/singlemonster";
 import MonsterList from "./pages/monsterlist";
+import DonationMachine from "./components/donationmachine"
 
 const rootElement = document.getElementById("root");
 
@@ -35,6 +36,7 @@ render(
             path="monsters/:id"
             element={<SingleMonster />}
           />
+          <Route path="donate" element={<DonationMachine />} />
         </Route>
       </Routes>
     </BrowserRouter>,
