@@ -152,9 +152,14 @@ export async function nameToIndex(name) {
 }
 
 export async function generateMonster(name) {
+  let monster = getMonsterStats(name)
+  return (monsterBlock(monster))
+}
+
+export async function getMonsterStats(name) {
   let index = await nameToIndex(name)
   let monster = await getMonster(index)
-  return (monsterBlock(monster))
+  return monster
 }
 
 export function MonsterCard(name) {
