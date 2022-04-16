@@ -7,119 +7,55 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { BrandingWatermarkRounded } from "@mui/icons-material"
 import { getAC } from "./equipment"
 import { getRandomInt } from "../assets/js/global"
+import { armorByWealth } from "../assets/data/equipmentbywealth"
 
-const armorByWealth = (
-  {
-    "cheap": [
-      {
-        "name": "Padded Armor",
-        "ac": 11,
-        "max_dex": 100
-      },
-      {
-        "name": "Leather Armor",
-        "ac": 11,
-        "max_dex": 100
-      },
-      {
-        "name": "no armor",
-        "ac": 8,
-        "max_dex": 100
-      },
-      {
-        "name": "Animal Skins",
-        "ac": 12,
-        "max_dex": 2
-      }
-    ],
-    "rich": [
-      {
-        "name": "Fine Studded Leather Armor",
-        "ac": 12,
-        "max_dex": 100
-      },
-      {
-        "name": "Elegant Halfplate",
-        "ac":14,
-        "max_dex": 3
-      },
-      {
-        "name": "Full Plate",
-        "ac":18,
-        "max_dex": 0
-      },
-      {
-        "name": "Enchanted Travelling Clothes",
-        "ac":15,
-        "max_dex": 2
-      }
-    ],
-    "legendary": [
-      {
-        "name": "Crystal Armor",
-        "ac": 18,
-        "max_dex": 3,
-        "desc": "This crystal armor shimmers in the light."
-      },
-      {
-        "name": "+2 Full Plate",
-        "ac": 20,
-        "max_dex": 0 
-      },
-      {
-        "name": "Demonskin Leather Armor",
-        "ac": 16,
-        "max_dex": 100,
-        "desc": "This armor stitched from the hide of a demon grants resistance to fire damage."
-      },
-      {
-        "name": "Chimeric Hide Armor",
-        "ac": 17,
-        "max_dex": 4,
-        "desc": "This armor is patched together from various mythical beasts."
-      }
-    ],
-  }
-  )
+const raceOptions = ['orc', 'gnoll', 'bugbear', 'skeleton', 'hobgoblin', 'goblin', 'kobold']
 
 export function WealthyMonster(race) {
 
   const [selectRace, setSelectRace] = useState('');
+  const [raceName, setRaceName] = useState('');
   const [wealthLevel, setWealthLevel] = useState('');
-  const [armorName, setArmorName] = useState('');
+  const [armorName, setArmorName] = useState('armor');
   const [armorDesc, setArmorDesc] = useState('');
 
   const [wealthyMonster, setWealthyMonster] = useState('');
 
   async function generateWealthyMonster(race, wealth) {
-    let defaultSheet = await getMonsterStats(race)
-    
-    let armor = ''
+    if (selectRace && wealthLevel) {
+      let defaultSheet = await getMonsterStats(race)
+      let armor = ''
+      let outputString = document.getElementById('output')
 
-    switch (wealth) {
-      case 'poor':
-        armor = armorByWealth.cheap[getRandomInt(armorByWealth.cheap.length)]
-        defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
-        break;
-      case 'rich':
-        armor = armorByWealth.rich[getRandomInt(armorByWealth.cheap.length)]
-        defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
-        break;
-      case 'legendary':
-        armor = armorByWealth.legendary[getRandomInt(armorByWealth.cheap.length)]
-        defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
+      outputString.style.display = 'block'
+
+      switch (wealth) {
+        case 'poor':
+          armor = armorByWealth.cheap[getRandomInt(armorByWealth.cheap.length)]
+          defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
+          break;
+        case 'rich':
+          armor = armorByWealth.rich[getRandomInt(armorByWealth.cheap.length)]
+          defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
+          break;
+        case 'legendary':
+          armor = armorByWealth.legendary[getRandomInt(armorByWealth.cheap.length)]
+          defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
+        }
+
+      let processedSheet = monsterBlock(defaultSheet)
+      setRaceName(race)
+      setWealthyMonster(processedSheet)
+      setArmorName(armor.name)
+      try {
+        setArmorDesc(armor.desc)
+      } catch {
+        return
       }
-
-    let processedSheet = monsterBlock(defaultSheet)
-    setWealthyMonster(processedSheet)
-    setArmorName(armor.name)
-    try {
-      setArmorDesc(armor.desc)
-    } catch {
-      return
+    } else {
+      alert('Please pick a race and wealth level.')
     }
   }
 
@@ -130,23 +66,27 @@ export function WealthyMonster(race) {
     setWealthLevel(event.target.value);
   };
 
+  const raceSelect = (
+  <Select
+    style={{textTransform:'capitalize'}}
+    labelId="race-label"
+    id="race-select"
+    value={selectRace}
+    label="Race"
+    onChange={handleRaceChange}
+  >
+    {raceOptions.map((item) => {
+      return <MenuItem style={{textTransform:'capitalize'}} value={item}>{item}</MenuItem>
+    })}
+  </Select>
+  )
 
   return (
     <Container className="card" maxWidth="md">
       <div style={{backgroundColor:'white',padding:'1rem',borderRadius:'10px'}}>
       <FormControl style={{width:'120px'}} >
         <InputLabel id="race">Race</InputLabel>
-        <Select
-          labelId="race-label"
-          id="race-select"
-          value={selectRace}
-          label="Race"
-          onChange={handleRaceChange}
-        >
-          <MenuItem value={'orc'}>Orc</MenuItem>
-          <MenuItem value={'gnoll'}>Gnoll</MenuItem>
-          <MenuItem value={'bugbear'}>Bugbear</MenuItem>
-        </Select>
+        {raceSelect}
       </FormControl>
       <FormControl style={{width:'120px'}} >
       <InputLabel id="wealth">Wealth</InputLabel>
@@ -164,7 +104,7 @@ export function WealthyMonster(race) {
       </FormControl>
       </div>
       <Button style={{margin:'1rem'}} variant="contained" onClick={() => generateWealthyMonster(selectRace, wealthLevel)}>Generate Monster by Wealth</Button>
-      <Typography sx={{ fontStyle: 'italic' }}>A {selectRace} clad in {armorName}. {armorDesc}</Typography>
+      <Typography id="output" style={{display:'none'}} sx={{ fontStyle: 'italic' }}>A {raceName} clad in {armorName}. {armorDesc}</Typography>
       {wealthyMonster}
     </Container>)
 }
