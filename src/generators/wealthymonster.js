@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import { getAC } from "./equipment"
 import { getRandomInt } from "../assets/js/global"
 import { armorByWealth } from "../assets/data/equipmentbywealth"
+import { weaponsByWealth } from "../assets/data/equipmentbywealth"
 
 const raceOptions = ['orc', 'gnoll', 'bugbear', 'skeleton', 'hobgoblin', 'goblin', 'kobold']
 
@@ -27,9 +28,8 @@ export function WealthyMonster(race) {
     if (selectRace && wealthLevel) {
       let defaultSheet = await getMonsterStats(race)
       let armor = ''
-      let outputString = document.getElementById('output')
-
-      outputString.style.display = 'block'
+      let weapon = ''
+      document.getElementById('output').style.display = 'block'
 
       switch (wealth) {
         case 'poor':
@@ -37,12 +37,15 @@ export function WealthyMonster(race) {
           defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
           break;
         case 'rich':
-          armor = armorByWealth.rich[getRandomInt(armorByWealth.cheap.length)]
+          armor = armorByWealth.rich[getRandomInt(armorByWealth.rich.length)]
           defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
           break;
         case 'legendary':
-          armor = armorByWealth.legendary[getRandomInt(armorByWealth.cheap.length)]
+          armor = armorByWealth.legendary[getRandomInt(armorByWealth.legendary.length)]
           defaultSheet.armor_class = getAC(armor.ac,defaultSheet.dexterity,armor.max_dex);
+          defaultSheet.actions.push({name: armor.special_ability[0].name, desc: armor.special_ability[0].desc})
+          weapon = weaponsByWealth.legendary[getRandomInt(weaponsByWealth.legendary.length)]
+          console.log(weapon)
         }
 
       let processedSheet = monsterBlock(defaultSheet)
