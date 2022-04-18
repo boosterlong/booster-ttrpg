@@ -11,6 +11,7 @@ import { getAC } from "./equipment"
 import { getRandomInt } from "../assets/js/global"
 import { armorByWealth } from "../assets/data/equipmentbywealth"
 import { weaponsByWealth } from "../assets/data/equipmentbywealth"
+import { logMonster } from "../assets/js/dynamodb-controller"
 
 const raceOptions = ['orc', 'gnoll', 'bugbear', 'skeleton', 'hobgoblin', 'goblin', 'kobold']
 
@@ -52,6 +53,7 @@ export function WealthyMonster(race) {
       setRaceName(race)
       setWealthyMonster(processedSheet)
       setArmorName(armor.name)
+      logMonster(race, wealth)
       try {
         setArmorDesc(armor.desc)
       } catch {
