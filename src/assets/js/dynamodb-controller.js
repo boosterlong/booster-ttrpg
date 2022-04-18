@@ -5,11 +5,10 @@ const DynamoDB = new AWS.DynamoDB();
 function logMonster(monster, wealth) {
 
   AWS.config.update({
+    region:"us-west-2",
     accessKeyId:process.env.REACT_APP_AWS_ACCESS_KEY_ID,
     secretAccessKey:process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
   });
-
-  console.log(AWS.config)
 
   const params = {
     TableName: "booster_dynamo",
