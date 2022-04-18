@@ -13,7 +13,8 @@ function logMonster(monster, wealth) {
   const params = {
     TableName: "booster_dynamo",
     Item: {
-      entry: { S: monster },
+      entry: { S: new Date().toLocaleString() + "" },
+      monster: { S: monster },
       wealth: { S: wealth }
     },
   };
