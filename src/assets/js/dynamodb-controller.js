@@ -1,14 +1,14 @@
 const AWS = require("aws-sdk");
 
-const DynamoDB = new AWS.DynamoDB();
-
 function logMonster(monster, wealth) {
 
   AWS.config.update({
-    region:"us-west-2",
+    region:process.env.REACT_APP_REGION,
     accessKeyId:process.env.REACT_APP_AWS_ACCESS_KEY_ID,
     secretAccessKey:process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
   });
+
+  const DynamoDB = new AWS.DynamoDB();
 
   const params = {
     TableName: "booster_dynamo",
